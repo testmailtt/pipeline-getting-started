@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      lbtype: external
+  template:
+    metadata:
+      labels:
+        lbtype: external
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        tty: true
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 500m
+            memory: "1Gi"
+        ports:
+        - containerPort: 80
+          name: "80-port"
