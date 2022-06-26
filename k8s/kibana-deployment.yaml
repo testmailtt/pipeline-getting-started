@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elk-kibana
+  labels:
+    app: elk-kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      lbtype: external
+  template:
+    metadata:
+      labels:
+        lbtype: external
+        app: elk-kibana
+    spec:
+      containers:
+      - name: elk-kibana
+        image: elk-kibana:7.4.0-2
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 500m
+            memory: "1Gi"
+        ports:
+        - containerPort: 5601
+          name: "5601-port"
