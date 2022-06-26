@@ -1,6 +1,4 @@
-FROM golang:buster
-WORKDIR /app
-ADD . .
-RUN go build -o app
+FROM node:4.4
 EXPOSE 8080
-CMD ["./app"]
+COPY server.js .
+CMD node server.js
